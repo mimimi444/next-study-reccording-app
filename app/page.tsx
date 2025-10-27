@@ -7,16 +7,16 @@ import Result from "./components/Result"
 export type StudyObj = { 
   id: string,
   content: string,
-  time: number
+  time: string
 }
 
 export default function Home() {
   const [inputStudyContent, setInputStudyContent] = useState<string>("");
-  const [inputStudyTime, setInputStudyTime] = useState<number>(0);
+  const [inputStudyTime, setInputStudyTime] = useState<string>("");
   const [registeredObj, setRegisteredObj] = useState<StudyObj[]>([{
     id:"",
     content:"",
-    time:0
+    time:""
   }])
   const [sum, setSum] = useState(0);
 
@@ -25,7 +25,7 @@ export default function Home() {
     setInputStudyContent((prev)=>e.target.value);
   }
   const onChangeTime =(e:React.ChangeEvent<HTMLInputElement>)=>{
-    setInputStudyTime((prev)=>Number(e.target.value));
+    setInputStudyTime((prev)=>e.target.value);
   }
 
   //フォームの送信
@@ -36,14 +36,14 @@ export default function Home() {
       const sendObj = {
         id:self.crypto.randomUUID(),
         content: inputStudyContent,
-        time: inputStudyTime
+        time: String(inputStudyTime)
       }
       const newObj = [...registeredObj, sendObj];
 
       setRegisteredObj(newObj);
       setInputStudyContent("");
-      setInputStudyTime(0);
-      setSum((prev)=>prev+inputStudyTime);
+      setInputStudyTime("");
+      setSum((prev)=>prev+Number(inputStudyTime));
 
       return("send:"+sendObj);
   } catch(error) {

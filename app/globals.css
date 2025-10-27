@@ -13,6 +13,7 @@ body {
   display: grid;
   gap: 8px;
   color: #328869;
+  font-size: 16px;
 }
 
 section{
@@ -52,6 +53,8 @@ input[type="number"] {
   background-color: transparent;
   border: none;
   border-bottom: 2px solid #328869;
+  border-radius: 0;
+  font-size: 1rem;
 }
 
 li > div {
