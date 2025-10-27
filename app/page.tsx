@@ -1,15 +1,24 @@
 'use client'
 
 import { useState } from "react";
+import Form from "./components/Form";
+import Result from "./components/Result"
+
+export type StudyObj = { 
+  id: string,
+  content: string,
+  time: number
+}
 
 export default function Home() {
-  const [inputStudyContent, setInputStudyContent] = useState("");
-  const [inputStudyTime, setInputStudyTime] = useState(0);
-  const [registeredObj, setRegisteredObj] = useState([{
+  const [inputStudyContent, setInputStudyContent] = useState<string>("");
+  const [inputStudyTime, setInputStudyTime] = useState<number>(0);
+  const [registeredObj, setRegisteredObj] = useState<StudyObj[]>([{
     id:"",
     content:"学習内容",
     time:0
   }])
+  const [sum, setSum] = useState(0);
 
   //フォームの入力
   const onChangeContent =(e:React.ChangeEvent<HTMLInputElement>)=>{
@@ -22,52 +31,41 @@ export default function Home() {
   //フォームの送信
   const onSubmit =(e:React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
-        console.log({
-      id:self.crypto.randomUUID(),
-      content: inputStudyContent,
-      time: inputStudyTime
-    });
-    setInputStudyContent("");
-    setInputStudyTime(0);
-    return({
-      id:self.crypto.randomUUID(),
-      content: inputStudyContent,
-      time: inputStudyTime
-    })
+
+    try{
+      const sendObj = {
+        id:self.crypto.randomUUID(),
+        content: inputStudyContent,
+        time: inputStudyTime
+      }
+      const newObj = [...registeredObj, sendObj];
+
+      setRegisteredObj(newObj);
+      setInputStudyContent("");
+      setInputStudyTime(0);
+      setSum((prev)=>prev+inputStudyTime);
+
+      return("send:"+sendObj);
+  } catch(error) {
+      console.error(error);
+    }
   }
 
   return (
     <>
     <h1>学習記録アプリ</h1>
-    <section>
-      <form onSubmit={onSubmit}>
-        <div>
-          <label htmlFor="studyContent">学習内容</label>
-          <input type="text" name="studyContent" id="studyCom" value={inputStudyContent} onChange={onChangeContent} required/>
-        </div>
-        <div>
-          <label htmlFor="studyTime">学習時間</label>
-          <input type="number" name="studyTime" id="studyTime" min="0" value={inputStudyTime} onChange={onChangeTime} required/>時間
-        </div>
-        <div>入力されている内容:<span>{inputStudyContent}</span></div>
-        <div>入力されている時間:<span>{inputStudyTime}</span></div>
-        <button type="submit">登録</button>
-      </form>
-    </section>
-    <section>
-      <h3>ここに登録した内容を表示</h3>
-      <ul>
-        {registeredObj.map((obj)=>{
-          return(
-            <li key={obj.id}>
-              <p>{obj.content}</p>
-              <p>{obj.time}</p>
-            </li>
-          );
-        })}
-      </ul>
-      <div>合計時間：10/1000(h)</div>
-    </section>
+
+    <Form
+    onSubmit={onSubmit}
+    inputStudyContent={inputStudyContent}
+    onChangeContent={onChangeContent}
+    inputStudyTime={inputStudyTime}
+    onChangeTime={onChangeTime}
+     />
+    
+    <Result
+     registeredObj={registeredObj} 
+     sum={sum}/>
     </>
   );
 }

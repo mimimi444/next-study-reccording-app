@@ -4,10 +4,6 @@
   --background: #ffffff;
 }
 
-@theme inline {
-  --color-background: var(--background);
-}
-
 body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
@@ -24,6 +20,10 @@ section{
   border: 2px solid #cbff71;
   padding: 24px;
   border-radius: 16px;
+}
+
+p {
+  margin: 0;
 }
 
 button {
@@ -52,4 +52,10 @@ input[type="number"] {
   background-color: transparent;
   border: none;
   border-bottom: 2px solid #328869;
+}
+
+li > div {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 6fr 2fr;
 }
