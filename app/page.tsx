@@ -15,7 +15,7 @@ export default function Home() {
   const [inputStudyTime, setInputStudyTime] = useState<number>(0);
   const [registeredObj, setRegisteredObj] = useState<StudyObj[]>([{
     id:"",
-    content:"学習内容",
+    content:"学習内容が登録されていません",
     time:0
   }])
   const [sum, setSum] = useState(0);
