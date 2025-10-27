@@ -60,5 +60,5 @@ input[type="number"] {
 li > div {
   display: grid;
   gap: 8px;
-  grid-template-columns: 6fr 2fr;
+  grid-template-columns: 1fr 2fr;
 }
