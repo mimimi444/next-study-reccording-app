@@ -56,9 +56,15 @@ input[type="number"] {
   border-radius: 0;
   font-size: 1rem;
 }
+input[type="number"] {
+  width: 2rem;
+}
 
+ul {
+  padding-left: 1rem;
+}
 li > div {
   display: grid;
   gap: 8px;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 6fr 2fr;
 }
